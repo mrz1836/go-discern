@@ -116,6 +116,8 @@ go get github.com/mrz1836/go-discern
 The library has **zero third-party runtime dependencies**: the core, both adapters and `discerntest`
 use only the standard library. `testify` is used only by the tests and their internal helper package.
 
+<br/>
+
 ### Credentials
 
 You need credentials only for the providers you call. go-discern never reads environment variables or
@@ -202,6 +204,8 @@ chosen: billing
 model: jev-1.13.0
 ```
 
+<br/>
+
 ### Both providers and a policy
 
 To ask Jev and Clef the same question and get a recommendation, register both adapters and give the
@@ -261,6 +265,8 @@ Otherwise the status says why: `below_threshold` when they agree but a probabili
 (reason `provider_failed`) when one of them failed. The policy never calls a provider; it only reads
 the answers.
 
+<br/>
+
 ### Next steps
 
 - [Usage](#-usage): the three question kinds, the models, JSON state, policies, batches, storing
@@ -308,6 +314,8 @@ Tokens cannot be counted locally, so go-discern never checks these windows befor
 *Oversized state* under [Behavior](#%EF%B8%8F-behavior) for what each model did with state that did
 not fit.
 
+<br/>
+
 ### Set up once
 
 ```go
@@ -331,6 +339,8 @@ Both adapters take the same options: `WithModel`, `WithTimeout` (default 30 seco
 accepts only an `https` server on a loopback address and exists for tests. `discern.New` takes one
 `WithAdapter` per provider, `WithDefaultPolicy` and `WithBatchConcurrency`. The `Evaluator` and both
 adapters are immutable and safe for concurrent use.
+
+<br/>
 
 ### Ask questions
 
@@ -375,6 +385,8 @@ state := discern.JSON([]byte(`{"ticket":{"id":12345678901234567890,"text":"..."}
 state, err := discern.Marshal(ticket) // or encode a Go value once, without HTML escaping
 ```
 
+<br/>
+
 ### Run both providers
 
 `JevAndClef` makes **exactly two potentially billable calls**, concurrently. One provider failing never
@@ -394,6 +406,8 @@ case res != nil: // both failed; res.Outcomes hold both typed failures
 default: // nothing was sent (invalid, unsupported, or already canceled)
 }
 ```
+
+<br/>
 
 ### Recommendations
 
@@ -453,6 +467,8 @@ recommendations for the surviving provider. `Policy` has JSON tags; when you loa
 configuration, decode it with `json.Decoder.DisallowUnknownFields` so a misspelled key cannot silently
 become a zero threshold.
 
+<br/>
+
 ### Batches
 
 ```go
@@ -470,6 +486,8 @@ At most `WithBatchConcurrency(n)` requests run at once (default 4), so up to `2n
 requests. Every item is billed; nothing is deduplicated. Provider rate limits apply (in October 2026,
 Jev documented 80 requests per second, and Cloudflare 300 requests per minute for Clef's task type).
 
+<br/>
+
 ### Storage
 
 A `Result` is a versioned JSON record (`discern.result/v1`):
@@ -478,6 +496,8 @@ A `Result` is a versioned JSON record (`discern.result/v1`):
 data, err := json.Marshal(res.Redact(discern.Redaction{CorrelationID: true}))
 restored, err := discern.ParseResult(data) // ErrInvalidRecord on another schema, broken references or inconsistent verdicts
 ```
+
+<br/>
 
 ### In a net/http handler
 
@@ -504,6 +524,8 @@ func (h *Handler) Route(w http.ResponseWriter, r *http.Request) {
     respond(w, res) // Complete or Partial
 }
 ```
+
+<br/>
 
 ### Testing your application
 
