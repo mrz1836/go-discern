@@ -223,7 +223,7 @@
             "type": "shell"
         },
         {
-            "command": "magex test:short",
+            "command": "magex testQuick",
             "detail": "Run fast unit tests with -short flag (excludes slow tests)",
             "group": "test",
             "label": "magex: test:quick",
@@ -239,8 +239,24 @@
             "type": "shell"
         },
         {
-            "command": "magex test:full",
-            "detail": "Run the full test suite with linting",
+            "command": "magex testPerf",
+            "detail": "Run performance regression tests (may take 30+ minutes)",
+            "group": "test",
+            "label": "magex: test:perf",
+            "presentation": {
+                "clear": true,
+                "focus": false,
+                "panel": "dedicated",
+                "reveal": "always"
+            },
+            "problemMatcher": [
+                "$go"
+            ],
+            "type": "shell"
+        },
+        {
+            "command": "magex testAll",
+            "detail": "Run all tests including performance tests (comprehensive)",
             "group": "test",
             "label": "magex: test:all",
             "presentation": {
@@ -367,10 +383,42 @@
             "type": "shell"
         },
         {
-            "command": "magex test:benchshort",
-            "detail": "Run short benchmarks",
+            "command": "magex benchQuick",
+            "detail": "Run only quick benchmarks (~5-10 minutes)",
             "group": "test",
             "label": "magex: bench:quick",
+            "presentation": {
+                "clear": true,
+                "focus": false,
+                "panel": "dedicated",
+                "reveal": "always"
+            },
+            "problemMatcher": [
+                "$go"
+            ],
+            "type": "shell"
+        },
+        {
+            "command": "magex benchHeavy",
+            "detail": "Run intensive benchmarks (10-30 minutes: stress tests, large datasets)",
+            "group": "test",
+            "label": "magex: bench:heavy",
+            "presentation": {
+                "clear": true,
+                "focus": false,
+                "panel": "dedicated",
+                "reveal": "always"
+            },
+            "problemMatcher": [
+                "$go"
+            ],
+            "type": "shell"
+        },
+        {
+            "command": "magex benchAll",
+            "detail": "Run all benchmarks including heavy ones (30-60 minutes total)",
+            "group": "test",
+            "label": "magex: bench:all",
             "presentation": {
                 "clear": true,
                 "focus": false,

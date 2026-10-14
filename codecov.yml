@@ -32,8 +32,8 @@ ignore:
   - ".vscode/**"
   - "bin/**"
   - "example/**"
+  - "docs/**"
   - "examples/**"
-  - "internal/testutil/**"
   - "mocks/**"
   - "testing/**"
 
